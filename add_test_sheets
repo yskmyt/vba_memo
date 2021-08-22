@@ -1,0 +1,17 @@
+Function addTestSheets()
+    Application.DisplayAlerts = False
+    For Each ws In ThisWorkbook.Worksheets
+        If ws.Name = "追加" Then
+            ThisWorkbook.Worksheets("追加").Delete
+        ElseIf ws.Name = "更新" Then
+            ThisWorkbook.Worksheets("更新").Delete
+        ElseIf ws.Name = "結果" Then
+            ThisWorkbook.Worksheets("結果").Delete
+        End If
+    Next ws
+    Application.DisplayAlerts = True
+
+    ThisWorkbook.Worksheets.Add(After:=ThisWorkbook.Worksheets(1)).Name = "追加"
+    ThisWorkbook.Worksheets.Add(After:=ThisWorkbook.Worksheets(2)).Name = "更新"
+    ThisWorkbook.Worksheets.Add(After:=ThisWorkbook.Worksheets(3)).Name = "結果"
+End Function
