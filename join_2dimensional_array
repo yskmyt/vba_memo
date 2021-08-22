@@ -1,0 +1,40 @@
+'二次元配列を行方向(縦方向)に結合(マージ)する
+Public Function Call_MergeArray_Row(arr1 As Variant, arr2 As Variant) As Variant
+     
+    '結合(マージ)後の配列サイズ
+    '行方向(縦)に結合、列方向(横)は二次元配列の大きい方に合わせる。
+    Dim ROW_NEW As Long
+    Dim COL_NEW As Long
+    ROW_NEW = UBound(arr1, 1) + UBound(arr2, 1)
+    COL_NEW = Application.WorksheetFunction.Max(UBound(arr1, 2), UBound(arr2, 2))
+     
+    '結合(マージ)後の二次元配列
+    Dim newArr As Variant
+    ReDim newArr(1 To ROW_NEW, 1 To COL_NEW)
+     
+    '二次元配列を結合処理
+    Dim i As Long
+    Dim j As Long
+    For i = 1 To ROW_NEW
+        If i <= UBound(arr1, 1) Then
+            For j = 1 To COL_NEW
+                If j <= UBound(arr1, 2) Then
+                    newArr(i, j) = arr1(i, j)
+                Else
+                    newArr(i, j) = Empty
+                End If
+            Next j
+        Else
+            For j = 1 To COL_NEW
+                If j <= UBound(arr2, 2) Then
+                    newArr(i, j) = arr2(i - UBound(arr1, 1), j)
+                Else
+                    newArr(i, j) = Empty
+                End If
+            Next j
+        End If
+    Next i
+     
+    Call_MergeArray_Row = newArr
+     
+End Function
